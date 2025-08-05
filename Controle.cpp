@@ -1,0 +1,96 @@
+#include "Controle.h"
+#include <string>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <limits>
+
+ControleFinanceiro::ControleFinanceiro()
+{
+    carregarcontrole();
+}
+
+void ControleFinanceiro::carregarcontrole()
+{
+    std::ifstream arquivo_entrada("despesas.txt");
+    std::string linha;
+
+    if (arquivo_entrada.is_open())
+    {
+        while (getline(arquivo_entrada, linha))
+        {
+            std::string descricao, data, categoria, valor_str;
+            std::stringstream ss(linha);
+            std::getline(ss, descricao, ';');
+            std::getline(ss, valor_str, ';');
+            std::getline(ss, data, ';');
+            std::getline(ss, categoria, ';');
+            double valor = std::stod(valor_str);
+            this->despesas.push_back(Despesa(descricao, valor, data, categoria));
+        }
+        arquivo_entrada.close();
+        std::cout << "Despesas carregadas com sucesso!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Erro ao abrir o arquivo de despesas." << std::endl;
+    }
+}
+
+void ControleFinanceiro::salvarcontrole() const
+{
+    std::ofstream arquivo_saida("despesas.txt");
+    if (arquivo_saida.is_open())
+    {
+        for (const auto &despesas : despesas)
+        {
+            arquivo_saida << despesas.getDescricao() << ";" << despesas.getValor() << ";" << despesas.getData() << ";" << despesas.getCategoria() << std::endl;
+        }
+        arquivo_saida.close();
+        std::cout << "Despesas salvas com sucesso!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Erro ao abrir o arquivo de despesas." << std::endl;
+    }
+}
+
+void ControleFinanceiro::listardespesas() const
+{
+    if (despesas.empty())
+    {
+        std::cout << "Nenhuma despesa cadastrada." << std::endl;
+        return;
+    }
+    for (const auto &despesa : despesas)
+    {
+        std::cout << "Descrição: " << despesa.getDescricao() << std::endl;
+        std::cout << "Valor: " << despesa.getValor() << std::endl;
+        std::cout << "Data: " << despesa.getData() << std::endl;
+        std::cout << "Categoria: " << despesa.getCategoria() << std::endl;
+        std::cout << "-----------------" << std::endl;
+        std::cout << std::endl;
+    }
+}
+
+void ControleFinanceiro::adicionardespesa()
+{
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::string descricao, data, categoria;
+    double valor;
+
+    std::cout << "Digite a descrição da despesa: ";
+    std::getline(std::cin, descricao);
+    std::cout << "Digite o valor da despesa: ";
+    std::cin >> valor;
+    std::cout << "Digite a data da despesa: (dd/mm/aaaa): ";
+    std::getline(std::cin, data);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Digite a categoria da despesa: ";
+    std::getline(std::cin, categoria);
+    Despesa despesa(descricao, valor, data, categoria);
+    despesas.push_back(despesa);
+    std::cout << "Despesa adicionada com sucesso!" << std::endl;
+    salvarcontrole();
+}
