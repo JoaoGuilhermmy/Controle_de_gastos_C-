@@ -16,6 +16,7 @@ public:
     void carregarcontrole();
     void listardespesas() const;
     void adicionardespesa();
+    void limpatela() const;
 };
 
 #endif

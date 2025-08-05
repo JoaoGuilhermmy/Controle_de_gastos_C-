@@ -1,19 +1,23 @@
 #include "Controle.h"
 #include <iostream>
+#include <windows.h>
 
 int main()
 {
+    SetConsoleOutputCP(CP_UTF8);
     ControleFinanceiro despesa;
 
     while (true)
     {
         int opcao;
+        std::cout << "\t -------------- Controle Financeiro --------------" << std::endl;
         std::cout << "Escolha uma opcao:" << std::endl;
         std::cout << "1 - Adicionar despesa" << std::endl;
         std::cout << "2 - Listar despesas" << std::endl;
         std::cout << "3 - Sair" << std::endl;
-        std::cout << "Opcao: ";
+        std::cout << "Digite sua opção: ";
         std::cin >> opcao;
+        despesa.limpatela();
 
         switch (opcao)
         {

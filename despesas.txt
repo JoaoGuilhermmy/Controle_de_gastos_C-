@@ -1,1 +1,6 @@
-Curso udemay;77.99;;Aprendizado
+Curso Udemay ;79.84;;Aprendizado
+Curso Udemay;77.89;;Aprendizado
+Cinema ;15;;Lazer
+Filme de terror;15.89;124563;Lazer
+Kart;45.89;12/12/24;Lazer
+Udemay;45.69;12/09/04;Lazer
