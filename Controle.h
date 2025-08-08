@@ -17,6 +17,8 @@ public:
     void listardespesas() const;
     void adicionardespesa();
     void limpatela() const;
+    void calcular() const;
+    void removerdespesa();
 };
 
 #endif

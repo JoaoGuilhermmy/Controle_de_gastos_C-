@@ -13,7 +13,6 @@ private:
     std::string categoria;
 
 public:
-    Despesa();
     Despesa(std::string descricao, double valor, std::string data, std::string categoria);
 
     std::string getDescricao() const;
