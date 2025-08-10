@@ -16,7 +16,8 @@ int main()
         std::cout << "2 - Listar despesas" << std::endl;
         std::cout << "3 - Calcular total de despesas" << std::endl;
         std::cout << "4 - Remover despesa" << std::endl;
-        std::cout << "5 - Sair" << std::endl;
+        std::cout << "5 - Mostrar depesas com filtro" << std::endl;
+        std::cout << "6 - Sair" << std::endl;
         std::cout << "Digite sua opção: ";
         std::cin >> opcao;
         despesa.limpatela();
@@ -36,6 +37,9 @@ int main()
             despesa.removerdespesa();
             break;
         case 5:
+            despesa.filtrardespesas();
+            break;
+        case 6:
             despesa.salvarcontrole();
             return 0;
         default:

@@ -11,6 +11,13 @@
 
 ControleFinanceiro::ControleFinanceiro()
 {
+    this->categorias.push_back("Alimentacao");
+    this->categorias.push_back("Locomoção");
+    this->categorias.push_back("Educação");
+    this->categorias.push_back("Lazer");
+    this->categorias.push_back("Saúde");
+    this->categorias.push_back("Contas e Serviços");
+    this->categorias.push_back("Outros");
     carregarcontrole();
 }
 
@@ -100,6 +107,9 @@ void ControleFinanceiro::adicionardespesa()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::string descricao, data, categoria;
     double valor;
+    int i = 0;
+    int tipocategoria;
+    ;
 
     std::cout << "\t -------------- Cadastro da Despesa --------------" << std::endl;
 
@@ -113,8 +123,22 @@ void ControleFinanceiro::adicionardespesa()
     std::cout << "Digite a data da despesa: (dd/mm/aaaa): ";
     std::getline(std::cin, data);
 
-    std::cout << "Digite a categoria da despesa: ";
-    std::getline(std::cin, categoria);
+    std::cout << "Escolha qual categoria sua despesa se encaixa: " << std::endl;
+    for (auto &cat : categorias)
+    {
+        std::cout << ++i << " - " << cat << std::endl;
+    }
+    std::cin >> tipocategoria;
+    std::cin.ignore();
+    if (tipocategoria > categorias.size() || tipocategoria < 1)
+    {
+        std::cout << "Categoria nao encontrada, digite o núemro de uma categoria que esta na lista" << std::endl;
+        Sleep(3000);
+        limpatela();
+        return;
+    }
+
+    categoria = categorias[tipocategoria - 1];
 
     Despesa despesa(descricao, valor, data, categoria);
     despesas.push_back(despesa);
@@ -188,5 +212,54 @@ void ControleFinanceiro::removerdespesa()
 
     std::cout << "Despesa removida com sucesso!" << std::endl;
     Sleep(3000);
+    limpatela();
+}
+
+void ControleFinanceiro::filtrardespesas() const
+{
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    int tipocategoria;
+    int i = 0;
+    if (despesas.empty())
+    {
+        std::cout << "Nenhuma despesa cadastrada!" << "\n";
+        return;
+    }
+    std::cout << "Escolha qual categoria você deseja filtrar: " << std::endl;
+    for (auto &cat : categorias)
+    {
+        std::cout << ++i << " - " << cat << std::endl;
+    }
+    std::cout << ":";
+    std::cout << std::endl;
+    std::cin >> tipocategoria;
+    std::cin.ignore();
+    std::cout << "----------------------------" << std::endl;
+
+    if (tipocategoria < 1 || tipocategoria > categorias.size())
+    {
+        std::cout << "Categoria nao encontrada, digite o núemro de uma categoria que esta na lista" << std::endl;
+        Sleep(3000);
+        limpatela();
+        return;
+    }
+
+    double soma_valores = 0.0;
+
+    for (auto &desp : despesas)
+    {
+        if (desp.getCategoria() == categorias[tipocategoria - 1])
+        {
+            std::cout << "Descrição: " << desp.getDescricao() << std::endl;
+            std::cout << "Valor: " << desp.getValor() << std::endl;
+            std::cout << "Data: " << desp.getData() << std::endl;
+            std::cout << "Categoria: " << desp.getCategoria() << std::endl;
+            std::cout << "----------------------------" << std::endl;
+            soma_valores += desp.getValor();
+        }
+    }
+
+    std::cout << "Total de despesas: R$" << soma_valores << std::endl;
+    Sleep(5000);
     limpatela();
 }

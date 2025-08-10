@@ -3,10 +3,12 @@
 
 #include "Despesa.h"
 #include <vector>
+#include <string>
 
 class ControleFinanceiro
 {
 private:
+    std::vector<std::string> categorias;
     std::vector<Despesa> despesas;
 
 public:
@@ -19,6 +21,7 @@ public:
     void limpatela() const;
     void calcular() const;
     void removerdespesa();
+    void filtrardespesas() const;
 };
 
 #endif
