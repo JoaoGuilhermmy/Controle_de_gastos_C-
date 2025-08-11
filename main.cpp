@@ -21,7 +21,6 @@ int main()
         std::cout << "7 - Sair" << std::endl;
         std::cout << "Digite sua opção: ";
         std::cin >> opcao;
-        despesa.limpatela();
 
         switch (opcao)
         {

@@ -75,11 +75,14 @@ void ControleFinanceiro::salvarcontrole() const
 
 void ControleFinanceiro::listardespesas() const
 {
+    limpatela();
 
     const int largura = 15;
     if (despesas.empty())
     {
         std::cout << "Nenhuma despesa cadastrada." << std::endl;
+        Sleep(3000);
+        limpatela();
         return;
     }
     std::cout << "-----------------------------------------------------" << std::endl;
@@ -104,6 +107,8 @@ void ControleFinanceiro::listardespesas() const
 
 void ControleFinanceiro::adicionardespesa()
 {
+    limpatela();
+
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::string descricao, data, categoria;
     double valor;
@@ -156,6 +161,7 @@ void ControleFinanceiro::limpatela() const
 
 void ControleFinanceiro::calcular() const
 {
+    limpatela();
     double soma = 0.0;
     for (const auto &despesas : despesas)
     {
@@ -168,9 +174,12 @@ void ControleFinanceiro::calcular() const
 
 void ControleFinanceiro::removerdespesa()
 {
+    limpatela();
     if (despesas.empty())
     {
         std::cout << "Nenhuma despesa cadastrada." << std::endl;
+        Sleep(3000);
+        limpatela();
         return;
     }
 
@@ -217,12 +226,15 @@ void ControleFinanceiro::removerdespesa()
 
 void ControleFinanceiro::filtrardespesas() const
 {
+    limpatela();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     int tipocategoria;
     int i = 0;
     if (despesas.empty())
     {
         std::cout << "Nenhuma despesa cadastrada!" << "\n";
+        Sleep(3000);
+        limpatela();
         return;
     }
     std::cout << "Escolha qual categoria você deseja filtrar: " << std::endl;
@@ -274,6 +286,7 @@ void ControleFinanceiro::filtrar_mes() const
     {
         std::cout << "Nenhuma despesa cadastrada!" << std::endl;
         Sleep(2000);
+        limpatela();
         return;
     }
 
