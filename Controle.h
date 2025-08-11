@@ -22,6 +22,7 @@ public:
     void calcular() const;
     void removerdespesa();
     void filtrardespesas() const;
+    void filtrar_mes() const;
 };
 
 #endif

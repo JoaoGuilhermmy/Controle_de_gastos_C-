@@ -263,3 +263,58 @@ void ControleFinanceiro::filtrardespesas() const
     Sleep(5000);
     limpatela();
 }
+
+void ControleFinanceiro::filtrar_mes() const
+{
+    limpatela();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::string mes_ano_usuario;
+
+    if (despesas.empty())
+    {
+        std::cout << "Nenhuma despesa cadastrada!" << std::endl;
+        Sleep(2000);
+        return;
+    }
+
+    std::cout << "Digite o mes e o ano (no formato mm/aaaa): ";
+    std::getline(std::cin, mes_ano_usuario);
+
+    limpatela();
+    double totalMes = 0.0;
+    bool encontrou = false;
+
+    std::cout << "--- Despesas do Periodo: " << mes_ano_usuario << " ---" << std::endl;
+    std::cout << std::fixed << std::setprecision(2);
+
+    for (const auto &desp : despesas)
+    {
+        std::string dataCompleta = desp.getData();
+        if (dataCompleta.length() == 10)
+        {
+            std::string mesAnoDespesa = dataCompleta.substr(3, 7);
+            if (mesAnoDespesa == mes_ano_usuario)
+            {
+                std::cout << "\n----------------------------------------" << std::endl;
+                std::cout << "  Descricao: " << desp.getDescricao() << std::endl;
+                std::cout << "  Valor: R$ " << desp.getValor() << std::endl;
+                std::cout << "  Data: " << desp.getData() << std::endl;
+                encontrou = true;
+                totalMes += desp.getValor();
+            }
+        }
+    }
+
+    if (!encontrou)
+    {
+        std::cout << "\nNenhuma despesa encontrada para este periodo." << std::endl;
+    }
+    else
+    {
+        std::cout << "\n----------------------------------------" << std::endl;
+        std::cout << "  Gasto Total no Periodo: R$ " << totalMes << std::endl;
+    }
+
+    Sleep(5000);
+    limpatela();
+}
